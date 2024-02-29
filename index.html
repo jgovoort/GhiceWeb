@@ -138,10 +138,16 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="Network"colspan="2"><strong>Network</strong><br />' + (feature.properties['Network'] !== null ? autolinker.link(feature.properties['Network'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Network</th>\
+                        <td class="visible-with-data" id="Network">' + (feature.properties['Network'] !== null ? autolinker.link(feature.properties['Network'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="Station"colspan="2"><strong>Station</strong><br />' + (feature.properties['Station'] !== null ? autolinker.link(feature.properties['Station'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Station</th>\
+                        <td class="visible-with-data" id="Station">' + (feature.properties['Station'] !== null ? autolinker.link(feature.properties['Station'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Elevation</th>\
+                        <td class="visible-with-data" id="Elevation">' + (feature.properties['Elevation'] !== null ? autolinker.link(feature.properties['Elevation'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <td colspan="2">\
