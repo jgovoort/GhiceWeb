@@ -8,7 +8,6 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -32,8 +31,8 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="js/leaflet-measure.js"></script>
-        <script src="data/Seismicstations_2.js"></script>
+        <script src="data/SeismicstationsIRISdatabase_2.js"></script>
+        <script src="data/SeismicstationsROBULBDeployments_3.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -53,7 +52,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[45.88582974153067,6.869607065269189],[46.02348312946072,7.15789183965247]]);
+        }).fitBounds([[63.44954936334476,-19.7128140458531],[65.248047689452,-13.142585500371965]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -79,18 +78,6 @@
             popup.update();
           }
         }, true);
-        var measureControl = new L.Control.Measure({
-            position: 'topleft',
-            primaryLengthUnit: 'meters',
-            secondaryLengthUnit: 'kilometers',
-            primaryAreaUnit: 'sqmeters',
-            secondaryAreaUnit: 'hectares'
-        });
-        measureControl.addTo(map);
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
-        .innerHTML = '';
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
-        .className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
@@ -120,7 +107,7 @@
         });
         layer_GoogleSatellite_1;
         map.addLayer(layer_GoogleSatellite_1);
-        function pop_Seismicstations_2(feature, layer) {
+        function pop_SeismicstationsIRISdatabase_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -153,7 +140,6 @@
                         <td colspan="2">\
 							<img \
 							src="images/' + (feature.properties['pictures'] !== null ? autolinker.link(feature.properties['pictures'].toLocaleString()) : "inprog.png") +'";\
-						</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxWidth: "auto"});
@@ -163,9 +149,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Seismicstations_2_0() {
+        function style_SeismicstationsIRISdatabase_2_0() {
             return {
-                pane: 'pane_Seismicstations_2',
+                pane: 'pane_SeismicstationsIRISdatabase_2',
                 shape: 'triangle',
                 radius: 6.0,
                 opacity: 1,
@@ -180,26 +166,105 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Seismicstations_2');
-        map.getPane('pane_Seismicstations_2').style.zIndex = 402;
-        map.getPane('pane_Seismicstations_2').style['mix-blend-mode'] = 'normal';
-        var layer_Seismicstations_2 = new L.geoJson(json_Seismicstations_2, {
+        map.createPane('pane_SeismicstationsIRISdatabase_2');
+        map.getPane('pane_SeismicstationsIRISdatabase_2').style.zIndex = 402;
+        map.getPane('pane_SeismicstationsIRISdatabase_2').style['mix-blend-mode'] = 'normal';
+        var layer_SeismicstationsIRISdatabase_2 = new L.geoJson(json_SeismicstationsIRISdatabase_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Seismicstations_2',
-            layerName: 'layer_Seismicstations_2',
-            pane: 'pane_Seismicstations_2',
-            onEachFeature: pop_Seismicstations_2,
+            dataVar: 'json_SeismicstationsIRISdatabase_2',
+            layerName: 'layer_SeismicstationsIRISdatabase_2',
+            pane: 'pane_SeismicstationsIRISdatabase_2',
+            onEachFeature: pop_SeismicstationsIRISdatabase_2,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.shapeMarker(latlng, style_Seismicstations_2_0(feature));
+                return L.shapeMarker(latlng, style_SeismicstationsIRISdatabase_2_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Seismicstations_2);
-        map.addLayer(layer_Seismicstations_2);
+        bounds_group.addLayer(layer_SeismicstationsIRISdatabase_2);
+        map.addLayer(layer_SeismicstationsIRISdatabase_2);
+        function pop_SeismicstationsROBULBDeployments_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Network</th>\
+                        <td class="visible-with-data" id="Network">' + (feature.properties['Network'] !== null ? autolinker.link(feature.properties['Network'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Station</th>\
+                        <td class="visible-with-data" id="Station">' + (feature.properties['Station'] !== null ? autolinker.link(feature.properties['Station'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Elevation</th>\
+                        <td class="visible-with-data" id="Elevation">' + (feature.properties['Elevation'] !== null ? autolinker.link(feature.properties['Elevation'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">\
+							<img \
+							src="images/' + (feature.properties['pictures'] !== null ? autolinker.link(feature.properties['pictures'].toLocaleString()) : "inprog.png") +'";\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxWidth: "auto"});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_SeismicstationsROBULBDeployments_3_0() {
+            return {
+                pane: 'pane_SeismicstationsROBULBDeployments_3',
+                shape: 'triangle',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(57,131,196,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_SeismicstationsROBULBDeployments_3');
+        map.getPane('pane_SeismicstationsROBULBDeployments_3').style.zIndex = 403;
+        map.getPane('pane_SeismicstationsROBULBDeployments_3').style['mix-blend-mode'] = 'normal';
+        var layer_SeismicstationsROBULBDeployments_3 = new L.geoJson(json_SeismicstationsROBULBDeployments_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_SeismicstationsROBULBDeployments_3',
+            layerName: 'layer_SeismicstationsROBULBDeployments_3',
+            pane: 'pane_SeismicstationsROBULBDeployments_3',
+            onEachFeature: pop_SeismicstationsROBULBDeployments_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_SeismicstationsROBULBDeployments_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_SeismicstationsROBULBDeployments_3);
+        map.addLayer(layer_SeismicstationsROBULBDeployments_3);
             var title = new L.Control();
             title.onAdd = function (map) {
                 this._div = L.DomUtil.create('div', 'info');
@@ -226,7 +291,7 @@
             };
             abstract.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/Seismicstations_2.png" /> Seismic stations': layer_Seismicstations_2,"Google Satellite": layer_GoogleSatellite_1,"OSM Standard": layer_OSMStandard_0,}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/SeismicstationsROBULBDeployments_3.png" /> Seismic stations - ROB/ULB Deployments': layer_SeismicstationsROBULBDeployments_3,'<img src="legend/SeismicstationsIRISdatabase_2.png" /> Seismic stations - IRIS database': layer_SeismicstationsIRISdatabase_2,"Google Satellite": layer_GoogleSatellite_1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
         setBounds();
         </script>
     </body>
